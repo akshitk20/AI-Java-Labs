@@ -1,4 +1,4 @@
-package com.javaaiexample;
+package com.javaaiexample.service;
 
 import java.io.IOException;
 import java.net.URI;
@@ -12,6 +12,7 @@ import java.time.format.DateTimeFormatter;
 
 public class TextToSpeechService {
     private static final String OPENAI_API_KEY = System.getenv("OPENAI_API_KEY");
+
     public Path generateMp3(String model, String input, String voice) {
         String payload = """
                 {
