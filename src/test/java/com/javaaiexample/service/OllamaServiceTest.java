@@ -12,7 +12,7 @@ class OllamaServiceTest {
 
     @Test
     public void testGenerate() {
-        var ollamaRequest = new OllamaRequest("gemma2", "Why is the sky blue?", false);
+        var ollamaRequest = new OllamaTextRequest("gemma2", "Why is the sky blue?", false);
         OllamaResponse ollamaResponse = ollamaService.generate(ollamaRequest);
         String answer = ollamaResponse.response();
         System.out.println(answer);
@@ -21,7 +21,7 @@ class OllamaServiceTest {
 
     @Test
     public void streaming_generate_request() {
-        var request = new OllamaRequest("gemma2", "Why is the sky blue?", true);
+        var request = new OllamaTextRequest("gemma2", "Why is the sky blue?", true);
         System.out.println("starting test");
         ollamaService.generateStreaming(request);
     }
@@ -36,7 +36,7 @@ class OllamaServiceTest {
                 false,
                 List.of("src/main/resources/cats_playing_cards.png"));
         System.out.println("starting test");
-        OllamaResponse ollamaResponse = ollamaService.generateVision(request);
+        OllamaResponse ollamaResponse = ollamaService.generate(request);
         assertNotNull(ollamaResponse);
         System.out.println(ollamaResponse.response());
     }

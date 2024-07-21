@@ -9,10 +9,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class OllamaRecords {
-    public record OllamaRequest(
+
+    public sealed interface OlammaRequest permits OllamaTextRequest, OllamaVisionRequest {}
+    public record OllamaTextRequest(
             String model,
             String prompt,
-            boolean stream) {
+            boolean stream) implements OlammaRequest{
     }
 
     public record OllamaResponse(
@@ -26,7 +28,7 @@ public class OllamaRecords {
             String model,
             String prompt,
             boolean stream,
-            List<String> images) {
+            List<String> images) implements OlammaRequest {
         public OllamaVisionRequest {
             images = images.stream()
                     .map(this::encodeImage)
