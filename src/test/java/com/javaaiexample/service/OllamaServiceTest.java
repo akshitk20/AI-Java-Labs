@@ -16,4 +16,11 @@ class OllamaServiceTest {
         System.out.println(answer);
         assertTrue(answer.toLowerCase().contains("scattering"));
     }
+
+    @Test
+    public void streaming_generate_request() {
+        var request = new OllamaRequest("gemma2", "Why is the sky blue?", true);
+        System.out.println("starting test");
+        ollamaService.generateStreaming(request);
+    }
 }

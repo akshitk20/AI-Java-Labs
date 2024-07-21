@@ -37,4 +37,20 @@ public class OllamaService {
             throw new RuntimeException(e);
         }
     }
+
+    public void generateStreaming(OllamaRequest ollamaRequest) {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(URL + "/api/generate"))
+                .header("Content-Type", "application/json")
+                .header("Accept", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(gson.toJson(ollamaRequest)))
+                .build();
+        client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                .thenAccept(response -> {
+                    if (response.body().contains("false")) {
+                        OllamaResponse output = gson.fromJson(response.body(), OllamaResponse.class);
+                        System.out.print(output);
+                    }
+                });
+    }
 }
