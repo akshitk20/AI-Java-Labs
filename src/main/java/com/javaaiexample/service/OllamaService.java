@@ -53,4 +53,24 @@ public class OllamaService {
                     }
                 });
     }
+
+    public OllamaResponse generateVision(OllamaVisionRequest ollamaRequest) {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(URL + "/api/generate"))
+                .header("Content-Type", "application/json")
+                .header("Accept", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(
+                        gson.toJson(ollamaRequest)))
+                .build();
+        try {
+            HttpResponse<String> response =
+                    client.send(request, HttpResponse.BodyHandlers.ofString());
+            if (response.statusCode() != 200) {
+                throw new RuntimeException("Failed with error code " + response.statusCode());
+            }
+            return gson.fromJson(response.body(), OllamaResponse.class);
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

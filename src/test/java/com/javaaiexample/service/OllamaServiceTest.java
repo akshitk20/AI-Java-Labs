@@ -3,6 +3,8 @@ package com.javaaiexample.service;
 import com.javaaiexample.records.OllamaRecords.*;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class OllamaServiceTest {
@@ -23,4 +25,20 @@ class OllamaServiceTest {
         System.out.println("starting test");
         ollamaService.generateStreaming(request);
     }
+
+    @Test
+    void test_vision_generate() {
+        var request = new OllamaVisionRequest("moondream",
+                """
+                Generate a text description of this image
+                suitable for accessibility in HTML.
+                """,
+                false,
+                List.of("src/main/resources/cats_playing_cards.png"));
+        System.out.println("starting test");
+        OllamaResponse ollamaResponse = ollamaService.generateVision(request);
+        assertNotNull(ollamaResponse);
+        System.out.println(ollamaResponse.response());
+    }
+
 }

@@ -1,4 +1,4 @@
-package com.javaaiexample;
+package com.javaaiexample.service;
 
 import com.javaaiexample.service.TextToSpeechService;
 import org.junit.jupiter.api.Test;
